@@ -1,0 +1,11 @@
+TARGET=board.pcb
+
+all:
+	pcb -x gerber ${TARGET}
+	./pcb2metalab.sh ${TARGET}
+
+clean:
+	rm -f *.ngc *.cnc *.gbr *.png *.ps
+
+
+.PHONY: clean
