@@ -5,7 +5,13 @@
 pcb2gcode=/usr/bin/pcb2gcode
 
 # get the scripts directory
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
+    DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+    SOURCE="$(readlink "$SOURCE")"
+    [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE" 
+done
+DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 
 # some pcb2gcode versions need a preamble and postamble file, please check if these files work for you
 # in the 1.1.4 version only the drillfile needs this!
@@ -48,7 +54,7 @@ brdname=$(basename $PCB .pcb)
 
 OPTS=""
 OPTS+="--back ${brdname}.bottom.gbr "
-OPTS+="--top ${brdname}.bottom.gbr "
+OPTS+="--front ${brdname}.top.gbr "
 OPTS+="--outline ${brdname}.outline.gbr "
 OPTS+="--drill ${brdname}.plated-drill.cnc "
 

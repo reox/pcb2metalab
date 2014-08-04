@@ -30,3 +30,8 @@ Some remarks to pcb2gcode:
   This is fine as long as we use a very small one. 0.5 or 0.6
   mm are very good. 0.3mm are better for milling but they are
   too short to mill through the whole pcb.
+* It seems that the touchoff of the size is quite difficult now.
+  While you run pcb2gcode note the size of the board. 
+  These values will be the right upper corner.
+  Otherwise you can touch of at 0 / 0, which will be
+  the left lower corner.
