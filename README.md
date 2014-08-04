@@ -35,3 +35,36 @@ Some remarks to pcb2gcode:
   These values will be the right upper corner.
   Otherwise you can touch of at 0 / 0, which will be
   the left lower corner.
+
+Sample
+------
+
+A sample output will look like this:
+
+```
+$ make
+pcb -x gerber my_pcb.pcb
+pcb2metalab.sh my_pcb.pcb
+/usr/bin/pcb2gcode --back my_pcb.bottom.gbr --front my_pcb.top.gbr
+--outline my_pcb.outline.gbr --drill my_pcb.plated-drill.cnc --metric
+--milldrill --zwork 0 --zsafe 10 --zchange 10 --zcut -1.7 --cutter-diameter 0.5
+--zdrill -0.2 --drill-feed 250 --drill-speed 22000 --offset 0.5 --mill-feed 250
+--mill-speed 22000 --cut-feed 250 --cut-speed 22000 --cut-infeed 0.2 --dpi 1200
+--basename my_pcb --preamble
+/home/reox/data/git/elektronik/pcb2metalab/preamble.ngc --postamble
+/home/reox/data/git/elektronik/pcb2metalab/postamble.ngc
+Importing front side... done
+Importing back side... done
+Importing outline... done
+clearing
+clearing
+clearing
+Calculated board dimensions: 3.02978in x 1.25979in
+Current Layer: back, exporting to my_pcb_back.ngc.
+Current Layer: front, exporting to my_pcb_front.ngc.
+Current Layer: outline, exporting to my_pcb_outline.ngc.
+Converting my_pcb.plated-drill.cnc... Currently Drilling 
+done.
+```
+
+You can use the size that is printed out for the touch off.
