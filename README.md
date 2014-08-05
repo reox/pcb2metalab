@@ -13,6 +13,21 @@ In my setup i use:
 * component side: layer 1
 * everything else: layer 2
 
+If you create a outline, the best way is to use the Polygon function. Make sure
+you use a `fullpoly`! Change this in your `.pcb` file.
+A sample Outline layer can look like this:
+```
+Layer(7 "outline")
+(
+	Polygon("fullpoly")
+	(
+		[91000 176000] [123000 176000] [123000 225000] [259000 225000] [259000 176000] 
+		[285000 176000] [285000 283000] [259000 283000] [259000 257000] [188000 257000] 
+		[188000 283000] [91000 283000] 
+	)
+)
+```
+
 Move `Makefile.sample` to your project as `Makefile`, adopt the target pcb name and then call
 `make`.
 Make sure `pcb2metalab.sh` is in your `$PATH`.
