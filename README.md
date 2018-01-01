@@ -138,3 +138,6 @@ END.
 
 The newer versions also give you hints how to fabricate the board, in this case
 you should drill from the front and also cut the outline from the front.
+
+With the never pcb2gcode version, you can even cut slots using polygons on
+`Edge.Cuts` layer when using the `--vectorial` option!
