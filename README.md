@@ -83,3 +83,58 @@ done.
 ```
 
 You can use the size that is printed out for the touch off.
+
+
+KiCAD
+-----
+
+This script seems to work also with KiCAD (pcbnew), but only using pcb2gcode
+1.3.2 (or at least newer than 1.1.2).
+KiCAD does not have a cmdline interface (there is a python interface though),
+but exporting from the GUI works as well.
+You need to export `F.Cu`, `B.Cu` and `Edge.Cuts`.
+Then go to the Drill export and use `HPGL` as format. Export as Metric!
+
+Then use such a `millproject` file:
+
+```
+metric=yes
+zwork=-0.030
+zsafe=2
+mill-feed=1000
+mill-speed=20000
+offset=0.3
+extra-passes=0
+cutter-diameter=0.5
+zcut=-1.65
+cut-feed=1000
+cut-speed=20000
+cut-infeed=0.2
+zdrill=-1.65
+zchange=2
+drill-feed=300
+drill-speed=20000
+milldrill=1
+```
+
+and call pcb2gcode:
+```
+pcb2gcode --front proj-F.Cu.gbr --back proj-B.Cu.gbr --outline proj-Edge.Cuts.gbr --drill proj.drl
+```
+
+On a double sided board, pcb2gcode will give you such an output:
+```
+Importing front side... DONE.
+Importing back side... DONE.
+Importing outline... DONE.
+Processing input files... DONE.
+Exporting back... DONE. (Height: 2.13156in Width: 1.88156in)
+Exporting front... DONE. (Height: 2.13156in Width: 1.88156in)
+Exporting outline... DONE. (Height: 2.13156in Width: 1.88156in) The board should be cut from the FRONT side.
+Importing drill... DONE.
+Exporting drill... DONE. The board should be drilled from the FRONT side.
+END.
+```
+
+The newer versions also give you hints how to fabricate the board, in this case
+you should drill from the front and also cut the outline from the front.

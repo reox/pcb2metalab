@@ -23,10 +23,11 @@ millhead="0.5"
 
 # a higher offset generates less cuts, less offset generates an "exact" image of
 # the pcb. minimum should be $millhead
+# for a filled voronoi like pcb you need to increase the value
 offset=$millhead
 
 # choose some mm more than your pcb has. normal pcbs has 1.6mm
-pcb_thickness=1.7
+pcb_thickness=1.65
 
 # tested 250mm/min cuting and milling, which seems quite good with a 0.5mm
 # millhead.
@@ -34,16 +35,20 @@ pcb_thickness=1.7
 
 # feedrates mm per minute
 feedrate=250
+feedrate_drill=400
 
-# how many mm we should cat in one z change.
+# how many mm we should cut in one z change.
 # used when cuting and drilling.
 infeed=`awk "BEGIN {print 0.4*$millhead;}"`
+infeed=0.2
 
-# speed 22000rpm should be fine
-speed=22000
+infeed_drill=0.4
+
+# go as fast as possible 
+speed=24000
 
 # height to move around
-safe=10
+safe=5
 
 #################################################################
 
@@ -59,8 +64,8 @@ OPTS+="--outline ${brdname}.outline.gbr "
 OPTS+="--drill ${brdname}.plated-drill.cnc "
 
 OPTS+="--metric --milldrill  "
-OPTS+="--zwork 0 --zsafe $safe --zchange 10 --zcut -$pcb_thickness --cutter-diameter $millhead "
-OPTS+="--zdrill -$infeed --drill-feed $feedrate --drill-speed $speed "
+OPTS+="--zwork -0.04 --zsafe $safe --zchange 5 --zcut -$pcb_thickness --cutter-diameter $millhead "
+OPTS+="--zdrill -$infeed_drill --drill-feed $feedrate_drill --drill-speed $speed "
 OPTS+="--offset $offset "
 OPTS+="--mill-feed $feedrate --mill-speed $speed --cut-feed $feedrate --cut-speed $speed --cut-infeed $infeed "
 OPTS+="--dpi 1200 "
